@@ -13,7 +13,9 @@ public class jfPrincipal extends javax.swing.JFrame {
     
     //Déclaration d'un panel jpHebergement
     protected jpHebergement pnlHebergement = new jpHebergement();
-    protected jpAccueil pnlAccueil = new jpAccueil();    
+    protected jpAccueil pnlAccueil = new jpAccueil();      
+    protected jpEtablissement pnlEtablissement = new jpEtablissement();
+
     /**
      * Creates new form jfPrincipal
      */
@@ -57,6 +59,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         jmnEtablissement.add(jmniListe1);
 
         jmniAjout1.setText("Ajout");
+        jmniAjout1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmniAjout1ActionPerformed(evt);
+            }
+        });
         jmnEtablissement.add(jmniAjout1);
 
         jMenuBar.add(jmnEtablissement);
@@ -92,11 +99,12 @@ public class jfPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 334, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void jmnHebergementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmnHebergementMouseClicked
        this.setContentPane(pnlHebergement);
@@ -107,6 +115,12 @@ public class jfPrincipal extends javax.swing.JFrame {
        this.setContentPane(pnlAccueil);
        pack(); //pour raffraichir l'affichage
     }//GEN-LAST:event_jmnAccueilMouseClicked
+
+    private void jmniAjout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAjout1ActionPerformed
+        this.setContentPane(pnlEtablissement);
+       pack(); //pour raffraichir l'affichage
+    }//GEN-LAST:event_jmniAjout1ActionPerformed
+
 
     /**
      * @param args the command line arguments
