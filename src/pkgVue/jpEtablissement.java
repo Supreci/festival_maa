@@ -26,6 +26,8 @@ public class jpEtablissement extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        radGroup_type = new javax.swing.ButtonGroup();
+        rad_Group_civilite = new javax.swing.ButtonGroup();
         lab_nomEtabl = new javax.swing.JLabel();
         lab_rue = new javax.swing.JLabel();
         lab_ville = new javax.swing.JLabel();
@@ -35,13 +37,11 @@ public class jpEtablissement extends javax.swing.JPanel {
         la_type = new javax.swing.JLabel();
         lab_resp = new javax.swing.JLabel();
         lab_civilite = new javax.swing.JLabel();
-        txt_nomEtabl = new javax.swing.JTextField();
         txt_rue = new javax.swing.JTextField();
         txt_ville = new javax.swing.JTextField();
         txt_cp = new javax.swing.JTextField();
         txt_tel = new javax.swing.JTextField();
         txt_mail = new javax.swing.JTextField();
-        rad_mme = new javax.swing.JRadioButton();
         rad_mr = new javax.swing.JRadioButton();
         txt_nomResp = new javax.swing.JTextField();
         txt_prenomResp = new javax.swing.JTextField();
@@ -49,7 +49,9 @@ public class jpEtablissement extends javax.swing.JPanel {
         lab_prenomResp = new javax.swing.JLabel();
         rad_etabl = new javax.swing.JRadioButton();
         rad_autre = new javax.swing.JRadioButton();
+        txt_nomEtabl = new javax.swing.JTextField();
         btn_ajt = new javax.swing.JButton();
+        rad_mme = new javax.swing.JRadioButton();
         btn_annuler = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -74,9 +76,6 @@ public class jpEtablissement extends javax.swing.JPanel {
 
         lab_civilite.setText("Civilité");
 
-        txt_nomEtabl.setPreferredSize(new java.awt.Dimension(120, 20));
-        txt_nomEtabl.setRequestFocusEnabled(false);
-
         txt_rue.setPreferredSize(new java.awt.Dimension(120, 20));
 
         txt_ville.setPreferredSize(new java.awt.Dimension(120, 20));
@@ -87,13 +86,7 @@ public class jpEtablissement extends javax.swing.JPanel {
 
         txt_mail.setPreferredSize(new java.awt.Dimension(120, 20));
 
-        rad_mme.setText("Mme");
-        rad_mme.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad_mmeActionPerformed(evt);
-            }
-        });
-
+        rad_Group_civilite.add(rad_mr);
         rad_mr.setText("Mr");
 
         txt_nomResp.setPreferredSize(new java.awt.Dimension(120, 20));
@@ -104,68 +97,90 @@ public class jpEtablissement extends javax.swing.JPanel {
 
         lab_prenomResp.setText("Prénom");
 
+        radGroup_type.add(rad_etabl);
+        rad_etabl.setSelected(true);
         rad_etabl.setText("Etablissement scolaire");
 
+        radGroup_type.add(rad_autre);
         rad_autre.setText("Autre");
 
+        txt_nomEtabl.setPreferredSize(new java.awt.Dimension(120, 20));
+        txt_nomEtabl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_nomEtablActionPerformed(evt);
+            }
+        });
+
         btn_ajt.setText("Ajouter");
+        btn_ajt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_ajtMouseClicked(evt);
+            }
+        });
+
+        rad_Group_civilite.add(rad_mme);
+        rad_mme.setSelected(true);
+        rad_mme.setText("Mme");
 
         btn_annuler.setText("Annuler");
+        btn_annuler.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_annulerMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
+                        .addGap(69, 69, 69)
                         .addComponent(btn_ajt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_annuler))
+                    .addComponent(lab_resp)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lab_resp)
+                            .addComponent(lab_nomEtabl)
+                            .addComponent(lab_rue)
+                            .addComponent(lab_ville)
+                            .addComponent(lab_cp4)
+                            .addComponent(lab_tel)
+                            .addComponent(lab_mail)
+                            .addComponent(la_type)
+                            .addComponent(lab_civilite)
+                            .addComponent(lab_nomResp)
+                            .addComponent(lab_prenomResp))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lab_nomEtabl)
-                                    .addComponent(lab_rue)
-                                    .addComponent(lab_ville)
-                                    .addComponent(lab_cp4)
-                                    .addComponent(lab_tel)
-                                    .addComponent(lab_mail)
-                                    .addComponent(la_type)
-                                    .addComponent(lab_civilite)
-                                    .addComponent(lab_nomResp)
-                                    .addComponent(lab_prenomResp))
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(rad_mme)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(rad_mr))
-                                    .addComponent(txt_mail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_cp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_ville, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_rue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_nomEtabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_nomResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_prenomResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(rad_etabl)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(rad_autre)))))))
-                .addContainerGap(414, Short.MAX_VALUE))
+                                .addComponent(rad_mme)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rad_mr))
+                            .addComponent(txt_mail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_cp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_ville, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_rue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_nomResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_prenomResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rad_etabl)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rad_autre))
+                            .addComponent(txt_nomEtabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(421, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab_nomEtabl)
-                    .addComponent(txt_nomEtabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lab_nomEtabl, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txt_nomEtabl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab_rue)
@@ -196,8 +211,8 @@ public class jpEtablissement extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab_civilite)
-                    .addComponent(rad_mme)
-                    .addComponent(rad_mr))
+                    .addComponent(rad_mr)
+                    .addComponent(rad_mme))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_nomResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,13 +225,21 @@ public class jpEtablissement extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_ajt)
                     .addComponent(btn_annuler))
-                .addContainerGap())
+                .addContainerGap(48, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rad_mmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rad_mmeActionPerformed
+    private void btn_ajtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ajtMouseClicked
+        // Quand on clic sur "Ajouter"
+    }//GEN-LAST:event_btn_ajtMouseClicked
+
+    private void btn_annulerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_annulerMouseClicked
+        // Quand on clic sur "Annuler"
+    }//GEN-LAST:event_btn_annulerMouseClicked
+
+    private void txt_nomEtablActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomEtablActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rad_mmeActionPerformed
+    }//GEN-LAST:event_txt_nomEtablActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_ajt;
@@ -232,6 +255,8 @@ public class jpEtablissement extends javax.swing.JPanel {
     private javax.swing.JLabel lab_rue;
     private javax.swing.JLabel lab_tel;
     private javax.swing.JLabel lab_ville;
+    private javax.swing.ButtonGroup radGroup_type;
+    private javax.swing.ButtonGroup rad_Group_civilite;
     private javax.swing.JRadioButton rad_autre;
     private javax.swing.JRadioButton rad_etabl;
     private javax.swing.JRadioButton rad_mme;
