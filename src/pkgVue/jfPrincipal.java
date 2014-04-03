@@ -9,13 +9,10 @@ package pkgVue;
  * @author etudsio
  */
 public class jfPrincipal extends javax.swing.JFrame {
-<<<<<<< HEAD
 
     protected jpChambre pnlChambre = new jpChambre();
-=======
-    
-     protected jpEtablissement pnlEtablissement = new jpEtablissement();
->>>>>>> 7b0bd92050d8eb4a370fff0d5dd0a320dca7cf3b
+    protected jpEtablissement pnlEtablissement = new jpEtablissement();
+
     /**
      * Creates new form jfPrincipal
      */
@@ -74,6 +71,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         jmnTypChambre.add(jmniListe2);
 
         jmniAjout2.setText("Ajout");
+        jmniAjout2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmniAjout2ActionPerformed(evt);
+            }
+        });
         jmnTypChambre.add(jmniAjout2);
 
         jMenuBar.add(jmnTypChambre);
@@ -100,18 +102,22 @@ public class jfPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-<<<<<<< HEAD
+
     private void jmniListe2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniListe2ActionPerformed
         // TODO add your handling code here:
-        this.setContentPane(pnlChambre);
-        pack();
     }//GEN-LAST:event_jmniListe2ActionPerformed
-=======
+
     private void jmniAjout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAjout1ActionPerformed
         this.setContentPane(pnlEtablissement);
        pack(); //pour raffraichir l'affichage
     }//GEN-LAST:event_jmniAjout1ActionPerformed
->>>>>>> 7b0bd92050d8eb4a370fff0d5dd0a320dca7cf3b
+
+    private void jmniAjout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAjout2ActionPerformed
+        // TODO add your handling code here:
+        this.setContentPane(pnlChambre);
+        pack();
+    }//GEN-LAST:event_jmniAjout2ActionPerformed
+
 
     /**
      * @param args the command line arguments
