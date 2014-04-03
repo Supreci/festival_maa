@@ -10,12 +10,16 @@ package pkgVue;
  */
 public class jfPrincipal extends javax.swing.JFrame {
 
+<<<<<<< HEAD
     
     //Déclaration d'un panel jpHebergement
     protected jpHebergement pnlHebergement = new jpHebergement();
     protected jpAccueil pnlAccueil = new jpAccueil();      
     protected jpEtablissement pnlEtablissement = new jpEtablissement();
 
+=======
+    protected jpChambre pnlChambre = new jpChambre();
+>>>>>>> Ajout jpChambre
     /**
      * Creates new form jfPrincipal
      */
@@ -71,6 +75,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         jmnTypChambre.setText("Types chambres");
 
         jmniListe2.setText("Liste");
+        jmniListe2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmniListe2ActionPerformed(evt);
+            }
+        });
         jmnTypChambre.add(jmniListe2);
 
         jmniAjout2.setText("Ajout");
@@ -105,6 +114,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+<<<<<<< HEAD
 
     private void jmnHebergementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmnHebergementMouseClicked
        this.setContentPane(pnlHebergement);
@@ -121,6 +131,13 @@ public class jfPrincipal extends javax.swing.JFrame {
        pack(); //pour raffraichir l'affichage
     }//GEN-LAST:event_jmniAjout1ActionPerformed
 
+=======
+    private void jmniListe2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniListe2ActionPerformed
+        // TODO add your handling code here:
+        this.setContentPane(pnlChambre);
+        pack();
+    }//GEN-LAST:event_jmniListe2ActionPerformed
+>>>>>>> Ajout jpChambre
 
     /**
      * @param args the command line arguments
