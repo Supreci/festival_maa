@@ -4,17 +4,22 @@
  */
 package pkgVue;
 
+import org.hibernate.Session;
+import pkgEntite.HibernateUtil;
+
 /**
  *
  * @author etudsio
  */
 public class jfPrincipal extends javax.swing.JFrame {
 
-    
+    /* Déclaration d'une session commune aux différentes interfaces*/
+    private static Session session = HibernateUtil.getSessionFactory().openSession();    
     //Déclaration d'un panel jpHebergement
     protected jpHebergement pnlHebergement = new jpHebergement();
     protected jpAccueil pnlAccueil = new jpAccueil();      
     protected jpEtablissement pnlEtablissement = new jpEtablissement();
+    protected jpChambre pnlChambre = new jpChambre();
 
     /**
      * Creates new form jfPrincipal
@@ -23,6 +28,14 @@ public class jfPrincipal extends javax.swing.JFrame {
         initComponents();
     }
 
+    public static Session getSession() {
+        return session;
+    }
+
+    public static void setSession(Session session) {
+        jfPrincipal.session = session;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,9 +84,19 @@ public class jfPrincipal extends javax.swing.JFrame {
         jmnTypChambre.setText("Types chambres");
 
         jmniListe2.setText("Liste");
+        jmniListe2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmniListe2ActionPerformed(evt);
+            }
+        });
         jmnTypChambre.add(jmniListe2);
 
         jmniAjout2.setText("Ajout");
+        jmniAjout2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmniAjout2ActionPerformed(evt);
+            }
+        });
         jmnTypChambre.add(jmniAjout2);
 
         jMenuBar.add(jmnTypChambre);
@@ -105,7 +128,6 @@ public class jfPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     private void jmnHebergementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmnHebergementMouseClicked
        this.setContentPane(pnlHebergement);
        pack(); //pour raffraichir l'affichage
@@ -120,6 +142,16 @@ public class jfPrincipal extends javax.swing.JFrame {
         this.setContentPane(pnlEtablissement);
         pack(); //pour raffraichir l'affichage
     }//GEN-LAST:event_jmniAjout1ActionPerformed
+
+    private void jmniListe2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniListe2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmniListe2ActionPerformed
+
+    private void jmniAjout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAjout2ActionPerformed
+        // TODO add your handling code here:
+        this.setContentPane(pnlChambre);
+        pack();
+    }//GEN-LAST:event_jmniAjout2ActionPerformed
 
 
     /**

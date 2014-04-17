@@ -41,11 +41,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Liste"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmniListe2ActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmniAjout2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ajout"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmniAjout2ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
