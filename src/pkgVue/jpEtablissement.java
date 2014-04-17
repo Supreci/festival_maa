@@ -4,6 +4,11 @@
  */
 package pkgVue;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import pkgEntite.Etablissement;
+import pkgEntite.HibernateUtil;
+
 /**
  *
  * @author etudsio
@@ -55,7 +60,7 @@ public class jpEtablissement extends javax.swing.JPanel {
         btn_annuler = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        setPreferredSize(new java.awt.Dimension(675, 300));
+        setPreferredSize(new java.awt.Dimension(675, 400));
         setRequestFocusEnabled(false);
 
         lab_nomEtabl.setText("Nom");
@@ -172,7 +177,7 @@ public class jpEtablissement extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rad_autre))
                             .addComponent(txt_nomEtabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(421, Short.MAX_VALUE))
+                .addContainerGap(399, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,12 +230,22 @@ public class jpEtablissement extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_ajt)
                     .addComponent(btn_annuler))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ajtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ajtMouseClicked
         // Quand on clic sur "Ajouter"
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    Etablissement unEtabl = new Etablissement();
+    unEtabl.getEtaId();
+    unEtabl.setEtaNom(txt_nomEtabl.getText());
+    
+            
+    Transaction tx = session.beginTransaction();
+    session.save(unEtabl);
+    tx.commit();
+    
     }//GEN-LAST:event_btn_ajtMouseClicked
 
     private void btn_annulerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_annulerMouseClicked

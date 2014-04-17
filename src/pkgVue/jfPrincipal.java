@@ -118,7 +118,7 @@ public class jfPrincipal extends javax.swing.JFrame {
 
     private void jmniAjout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAjout1ActionPerformed
         this.setContentPane(pnlEtablissement);
-       pack(); //pour raffraichir l'affichage
+        pack(); //pour raffraichir l'affichage
     }//GEN-LAST:event_jmniAjout1ActionPerformed
 
 
