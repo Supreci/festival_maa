@@ -4,6 +4,11 @@
  */
 package pkgVue;
 
+import java.util.Iterator;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Query;
+import pkgEntite.Typechambre;
+
 /**
  *
  * @author etudsio
@@ -16,7 +21,28 @@ public class jpChambres extends javax.swing.JPanel {
     public jpChambres() {
         initComponents();
     }
-
+    
+    public void chargerTabl() {
+        int inbligne ;
+        int i ;
+            // on efface la jtable
+            inbligne = jtblTypeChambres.getRowCount();
+            if ( inbligne > 0){
+                for (i=0; i<inbligne-1;i++){
+                    ((DefaultTableModel) jtblTypeChambres.getModel()).removeRow(0);
+                }
+                // Attention aux apostrophes dans les noms pour les requêtes SQL
+                String sReq = "From TYPECHAMBRE";
+                jfPrincipal.getSession().beginTransaction();
+                Query q = jfPrincipal.getSession().createQuery(sReq);
+                Iterator TypC= q.iterate();
+                while (TypC.hasNext()){
+                    Typechambre unTypeChambre = (Typechambre) TypC.next();
+                    ((DefaultTableModel) jtblTypeChambres.getModel()).addRow(new Object[]{unTypeChambre.getTchId(), unTypeChambre.getTchLibelle()});
+                }
+            }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,40 +53,58 @@ public class jpChambres extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtblTypeChambres = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtblTypeChambres.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Matricule", "Libelle"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtblTypeChambres);
+
+        jButton1.setText("Ajouter");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(161, 161, 161)
+                .addComponent(jButton1)
+                .addContainerGap(170, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(97, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtblTypeChambres;
     // End of variables declaration//GEN-END:variables
 }

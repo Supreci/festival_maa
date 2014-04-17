@@ -4,6 +4,9 @@
  */
 package pkgVue;
 
+import org.hibernate.Session;
+import pkgEntite.HibernateUtil;
+
 /**
  *
  * @author etudsio
@@ -16,14 +19,23 @@ public class jfPrincipal extends javax.swing.JFrame {
     protected jpAccueil pnlAccueil = new jpAccueil();      
     protected jpEtablissement pnlEtablissement = new jpEtablissement();
     protected jpChambre pnlChambre = new jpChambre();
-
+    protected jpChambres pnlChambres = new jpChambres();
+    // Déclaration d’une session commune aux différentes interfaces
+    private static Session session = HibernateUtil.getSessionFactory().openSession();
     /**
      * Creates new form jfPrincipal
      */
     public jfPrincipal() {
         initComponents();
     }
-
+    
+    public static Session getSession() {
+        return session;
+    }
+    
+    public static void setSession(Session psession) {
+        jfPrincipal.session = psession;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,6 +145,9 @@ public class jfPrincipal extends javax.swing.JFrame {
 
     private void jmniListe2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniListe2ActionPerformed
         // TODO add your handling code here:
+        this.setContentPane(pnlChambres);
+        pnlChambres.chargerTabl();
+        pack();
     }//GEN-LAST:event_jmniListe2ActionPerformed
 
     private void jmniAjout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAjout2ActionPerformed
