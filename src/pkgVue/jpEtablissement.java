@@ -4,6 +4,8 @@
  */
 package pkgVue;
 
+import java.util.Iterator;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pkgEntite.Etablissement;
@@ -247,7 +249,7 @@ public class jpEtablissement extends javax.swing.JPanel {
     private void btn_ajtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ajtMouseClicked
         // Quand on clic sur "Ajouter"
     Session session = HibernateUtil.getSessionFactory().openSession();
-    int i = 01; //ID temporaire
+    String i = "01"; //ID temporaire
     String civilite ;
     
     //Récupérer valeur des boutons radio
@@ -257,24 +259,43 @@ public class jpEtablissement extends javax.swing.JPanel {
     else{
         civilite = "monsieur";
     }
-    int type ;
+    boolean type ;
     if(rad_etabl.isSelected()){
-        type = 1;
+        type = true;
+    }
+    else{
+        type = false;
     }
     
-    Etablissement unEtabl = new Etablissement(i, txt_nomEtabl.getText(), txt_rue.getText(), txt_cp.getText(), txt_ville.getText(), txt_tel.getText(), txt_mail.getText(), rad_Group_civilite, radGroup_type, txt_nomResp.getText(), txt_prenomResp.getText());
+    Etablissement unEtabl = new Etablissement(i, txt_nomEtabl.getText(), txt_rue.getText(), txt_cp.getText(), txt_ville.getText(), txt_tel.getText(), type, civilite, txt_nomResp.getText(), txt_prenomResp.getText());
     //unEtabl.getEtaId();
    // unEtabl.setEtaNom(txt_nomEtabl.getText());
 
 
     Transaction tx = session.beginTransaction();
     session.save(unEtabl);
+    
     System.out.println(unEtabl.getEtaNom());
     tx.commit();
+    System.out.println(unEtabl.getEtaNom());
+    
     
     
     }//GEN-LAST:event_btn_ajtMouseClicked
+   
+    private void ChargerListeEtablissement(){
+            lst_etabl.removeAllItems(); //vider la liste deroulante
+            String sReq= "from Etablissement";
+            jfPrincipal.getSession().beginTransaction();
+            Query q = jfPrincipal.getSession().createQuery(sReq);
+            Iterator itEtabl = q.iterate();
 
+            while(itEtabl.hasNext()){
+               Etablissement unetablissement = (Etablissement)itEtabl.next();
+               lst_etabl.addItem(unetablissement.getEtaNom());
+            }
+                bcharge = true;
+           }
     private void btn_annulerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_annulerMouseClicked
         // Quand on clic sur "Annuler"
     }//GEN-LAST:event_btn_annulerMouseClicked
