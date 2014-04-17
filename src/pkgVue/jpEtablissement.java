@@ -294,7 +294,7 @@ public class jpEtablissement extends javax.swing.JPanel {
                Etablissement unetablissement = (Etablissement)itEtabl.next();
                lst_etabl.addItem(unetablissement.getEtaNom());
             }
-                bcharge = true;
+               // bcharge = true;
            }
     private void btn_annulerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_annulerMouseClicked
         // Quand on clic sur "Annuler"
