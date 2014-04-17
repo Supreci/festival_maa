@@ -10,8 +10,12 @@ package pkgVue;
  */
 public class jfPrincipal extends javax.swing.JFrame {
 
-    protected jpChambre pnlChambre = new jpChambre();
+    
+    //Déclaration d'un panel jpHebergement
+    protected jpHebergement pnlHebergement = new jpHebergement();
+    protected jpAccueil pnlAccueil = new jpAccueil();      
     protected jpEtablissement pnlEtablissement = new jpEtablissement();
+    protected jpChambre pnlChambre = new jpChambre();
 
     /**
      * Creates new form jfPrincipal
@@ -43,6 +47,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jmnAccueil.setText("Accueil");
+        jmnAccueil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmnAccueilMouseClicked(evt);
+            }
+        });
         jMenuBar.add(jmnAccueil);
 
         jmnEtablissement.setText("Etablissments");
@@ -81,6 +90,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenuBar.add(jmnTypChambre);
 
         jmnHebergement.setText("Hébergement");
+        jmnHebergement.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmnHebergementMouseClicked(evt);
+            }
+        });
         jMenuBar.add(jmnHebergement);
 
         jmnChambre.setText("Attribution");
@@ -102,15 +116,24 @@ public class jfPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jmnHebergementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmnHebergementMouseClicked
+       this.setContentPane(pnlHebergement);
+       pack(); //pour raffraichir l'affichage
+    }//GEN-LAST:event_jmnHebergementMouseClicked
 
-    private void jmniListe2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniListe2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmniListe2ActionPerformed
+    private void jmnAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmnAccueilMouseClicked
+       this.setContentPane(pnlAccueil);
+       pack(); //pour raffraichir l'affichage
+    }//GEN-LAST:event_jmnAccueilMouseClicked
 
     private void jmniAjout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAjout1ActionPerformed
         this.setContentPane(pnlEtablissement);
        pack(); //pour raffraichir l'affichage
     }//GEN-LAST:event_jmniAjout1ActionPerformed
+
+    private void jmniListe2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniListe2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmniListe2ActionPerformed
 
     private void jmniAjout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAjout2ActionPerformed
         // TODO add your handling code here:
