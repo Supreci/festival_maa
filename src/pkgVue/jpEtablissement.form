@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="radGroup_type">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="rad_Group_civilite">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[2147483647, 2147483647]"/>
     </Property>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[675, 300]"/>
+      <Dimension value="[675, 400]"/>
     </Property>
     <Property name="requestFocusEnabled" type="boolean" value="false"/>
   </Properties>
@@ -25,67 +31,63 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                       <Component id="btn_ajt" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btn_annuler" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="lab_resp" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lab_resp" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lab_nomEtabl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lab_rue" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lab_ville" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lab_cp4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lab_tel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lab_mail" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="la_type" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lab_civilite" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lab_nomResp" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lab_prenomResp" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lab_nomEtabl" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lab_rue" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lab_ville" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lab_cp4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lab_tel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lab_mail" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="la_type" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lab_civilite" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lab_nomResp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lab_prenomResp" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="rad_mme" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="rad_mr" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="txt_mail" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txt_tel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txt_cp" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txt_ville" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txt_rue" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txt_nomEtabl" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txt_nomResp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txt_prenomResp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="rad_etabl" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="rad_autre" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="rad_mme" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="rad_mr" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="txt_mail" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_tel" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_cp" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_ville" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_rue" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_nomResp" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_prenomResp" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="rad_etabl" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="rad_autre" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txt_nomEtabl" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="375" max="32767" attributes="0"/>
+              <EmptySpace pref="399" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lab_nomEtabl" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_nomEtabl" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lab_nomEtabl" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_nomEtabl" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -123,8 +125,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lab_civilite" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rad_mme" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rad_mr" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="rad_mme" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -141,7 +143,7 @@
                   <Component id="btn_ajt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_annuler" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="72" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -192,14 +194,6 @@
         <Property name="text" type="java.lang.String" value="Civilit&#xe9;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_nomEtabl">
-      <Properties>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[120, 20]"/>
-        </Property>
-        <Property name="requestFocusEnabled" type="boolean" value="false"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="txt_rue">
       <Properties>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -235,16 +229,11 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="rad_mme">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Mme"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rad_mmeActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JRadioButton" name="rad_mr">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="rad_Group_civilite"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Mr"/>
       </Properties>
     </Component>
@@ -274,23 +263,58 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="rad_etabl">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="radGroup_type"/>
+        </Property>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Etablissement scolaire"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rad_autre">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="radGroup_type"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Autre"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txt_nomEtabl">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[120, 20]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_nomEtablActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btn_ajt">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ajouter"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_ajtMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="rad_mme">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="rad_Group_civilite"/>
+        </Property>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Mme"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btn_annuler">
       <Properties>
         <Property name="text" type="java.lang.String" value="Annuler"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_annulerMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
