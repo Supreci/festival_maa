@@ -28,7 +28,7 @@ public class Etablissement  implements java.io.Serializable {
     }
 
 	
-    public Etablissement(String etaId, String etaNom, String etaRue, String etaCp, String etaVille, String etaTel, boolean etaType, String etaCivilresp, String etaNomresp) {
+    public Etablissement(String etaId, String etaNom, String etaRue, String etaCp, String etaVille, String etaTel, boolean etaType, String etaCivilresp, String etaNomresp, String etaPrenomresp) {
         this.etaId = etaId;
         this.etaNom = etaNom;
         this.etaRue = etaRue;
@@ -38,6 +38,7 @@ public class Etablissement  implements java.io.Serializable {
         this.etaType = etaType;
         this.etaCivilresp = etaCivilresp;
         this.etaNomresp = etaNomresp;
+        this.etaPrenomresp = etaPrenomresp;
     }
     public Etablissement(String etaId, String etaNom, String etaRue, String etaCp, String etaVille, String etaTel, String etaMail, boolean etaType, String etaCivilresp, String etaNomresp, String etaPrenomresp, Set offres) {
        this.etaId = etaId;

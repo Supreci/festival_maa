@@ -2,12 +2,17 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.DerbyDialect</property>
-    <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
-    <property name="hibernate.connection.url">jdbc:derby://localhost:1527/sample</property>
-    <property name="hibernate.connection.username">app</property>
-    <property name="hibernate.connection.password">app</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+    <property name="hibernate.connection.url">jdbc:oracle:thin:@172.30.10.9:1521:BAZDEV09</property>
+    <property name="hibernate.connection.username">FESTIVAL09</property>
+    <property name="hibernate.connection.password">secret</property>
     <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</property>
+    <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+    <mapping resource="pkgEntite/Etablissement.hbm.xml"/>
+    <mapping resource="pkgEntite/Groupe.hbm.xml"/>
+    <mapping resource="pkgEntite/Attribution.hbm.xml"/>
+    <mapping resource="pkgEntite/Offre.hbm.xml"/>
+    <mapping resource="pkgEntite/Typechambre.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

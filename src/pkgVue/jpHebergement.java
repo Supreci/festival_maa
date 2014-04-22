@@ -4,17 +4,25 @@
  */
 package pkgVue;
 
+import java.util.Iterator;
+import org.hibernate.Query;
+import pkgEntite.Etablissement;
+
 /**
  *
  * @author etudsio
  */
 public class jpHebergement extends javax.swing.JPanel {
+    
+    //varriable pour recharger le tableau
+    boolean bcharge = false;
 
     /**
      * Creates new form jpHebergement
      */
     public jpHebergement() {
         initComponents();
+        ChargerListeEtablissement();
     }
 
     /**
@@ -41,21 +49,33 @@ public class jpHebergement extends javax.swing.JPanel {
 
         jtblHebergement.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Type Chambre", "Capacité", "Nombre de chambre"
             }
         ));
         jScrollPane1.setViewportView(jtblHebergement);
 
         jcbEtablissement.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbEtablissement.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jcbEtablissementMouseClicked(evt);
+            }
+        });
         jcbEtablissement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbEtablissementActionPerformed(evt);
+            }
+        });
+        jcbEtablissement.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jcbEtablissementFocusGained(evt);
             }
         });
 
@@ -85,34 +105,30 @@ public class jpHebergement extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(103, 103, 103)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jcbEtablissement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jcbEtablissement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGap(125, 125, 125)
+                                .addComponent(jLabel1)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(101, 101, 101)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jbtnValider)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(125, 125, 125)
-                                    .addComponent(jLabel1)
-                                    .addGap(149, 149, 149))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(101, 101, 101)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jbtnValider)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -138,6 +154,21 @@ public class jpHebergement extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+       private void ChargerListeEtablissement(){
+            jcbEtablissement.removeAllItems(); //vider la liste deroulante
+            String sReq= "from Etablissement";
+            jfPrincipal.getSession().beginTransaction();
+            Query q = jfPrincipal.getSession().createQuery(sReq);
+            Iterator itEtabl = q.iterate();
+
+            while(itEtabl.hasNext()){
+               Etablissement unetablissement = (Etablissement)itEtabl.next();
+               jcbEtablissement.addItem(unetablissement.getEtaNom());
+            }
+            bcharge = true;
+           }
+    
+    
     private void jcbEtablissementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEtablissementActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbEtablissementActionPerformed
@@ -149,6 +180,14 @@ public class jpHebergement extends javax.swing.JPanel {
     private void jbtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnValiderActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtnValiderActionPerformed
+
+    private void jcbEtablissementFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbEtablissementFocusGained
+        
+    }//GEN-LAST:event_jcbEtablissementFocusGained
+
+    private void jcbEtablissementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbEtablissementMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbEtablissementMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;

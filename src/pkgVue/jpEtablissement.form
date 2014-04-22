@@ -49,7 +49,7 @@
                           <Component id="lab_cp4" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lab_tel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lab_mail" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="la_type" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lab_type" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lab_civilite" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lab_nomResp" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lab_prenomResp" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -74,6 +74,7 @@
                               <Component id="rad_autre" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="txt_nomEtabl" min="-2" max="-2" attributes="0"/>
+                          <Component id="lst_etabl" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -83,8 +84,10 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="lst_etabl" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lab_nomEtabl" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="txt_nomEtabl" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -116,7 +119,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="la_type" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lab_type" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rad_etabl" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rad_autre" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -143,7 +146,7 @@
                   <Component id="btn_ajt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_annuler" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="72" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -179,7 +182,7 @@
         <Property name="text" type="java.lang.String" value="Mail"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="la_type">
+    <Component class="javax.swing.JLabel" name="lab_type">
       <Properties>
         <Property name="text" type="java.lang.String" value="Type"/>
       </Properties>
@@ -305,7 +308,6 @@
           <ComponentRef name="rad_Group_civilite"/>
         </Property>
         <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="Mme"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btn_annuler">
@@ -314,6 +316,19 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_annulerMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="lst_etabl">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[120, 20]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lst_etablActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
