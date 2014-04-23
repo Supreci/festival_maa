@@ -4,6 +4,11 @@
  */
 package pkgVue;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import pkgEntite.HibernateUtil;
+import pkgEntite.Typechambre;
+
 /**
  *
  * @author etudsio
@@ -43,6 +48,11 @@ public class jpChambre extends javax.swing.JPanel {
         jbtnAnnuler.setText("Annuler");
 
         jbtnValider.setText("Valider");
+        jbtnValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnValiderActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -86,6 +96,24 @@ public class jpChambre extends javax.swing.JPanel {
                 .addContainerGap(102, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnValiderActionPerformed
+        // TODO add your handling code here:
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        Typechambre unTypeChambre = new Typechambre(jtxtCode.getText(), jtxtLibelle.getText());
+        //unEtabl.getEtaId();
+       // unEtabl.setEtaNom(txt_nomEtabl.getText());
+
+
+        Transaction tx = session.beginTransaction();
+        session.save(unTypeChambre);
+        tx.commit();
+
+        System.out.println(unTypeChambre.getTchId());
+        System.out.println(unTypeChambre.getTchLibelle());
+    }//GEN-LAST:event_jbtnValiderActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtnAnnuler;
     private javax.swing.JButton jbtnValider;
