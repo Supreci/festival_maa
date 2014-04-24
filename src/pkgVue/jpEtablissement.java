@@ -16,13 +16,14 @@ import pkgEntite.HibernateUtil;
  * @author etudsio
  */
 public class jpEtablissement extends javax.swing.JPanel {
-
+    private String etat;
     /**
      * Creates new form jpEtablissement
      */
     public jpEtablissement() {
         initComponents();
         ChargerListeEtablissement();
+        this.etat = "ajt" ;
     }
 
     /**
@@ -290,35 +291,34 @@ public class jpEtablissement extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ajtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ajtMouseClicked
-        // Quand on clic sur "Ajouter"
+    // Quand on clic sur "Ajouter" ou "Modifier"
     Session session = HibernateUtil.getSessionFactory().openSession();
-    String civilite ;
     
     //Récupérer valeur des boutons radio
+    String civilite = "monsieur";
     if(rad_mme.isSelected()){
         civilite = "madame";
     }
-    else{
-        civilite = "monsieur";
-    }
-    boolean type ;
+    boolean type = false;
     if(rad_etabl.isSelected()){
         type = true;
     }
-    else{
-        type = false;
-    }
-    
+
     Etablissement unEtabl = new Etablissement(txt_id.getText(), txt_nomEtabl.getText(), txt_rue.getText(), txt_cp.getText(), txt_ville.getText(), txt_tel.getText(), type, civilite, txt_nomResp.getText(), txt_prenomResp.getText());
 
-
     Transaction tx = session.beginTransaction();
-    session.save(unEtabl);
     
-    //System.out.println(unEtabl.getEtaNom());
+    if(this.etat.equals("ajt")){ //Si on est sur ajouter->On ajoute
+        session.save(unEtabl);
+    }
+    else //si non on modifie 
+    {
+        session.update(unEtabl);
+        ChargerListeEtablissement();//Rechargement de la liste
+        retourPageAjout();
+       
+    }
     tx.commit();
-   // System.out.println(unEtabl.getEtaNom());
-    
     ChargerListeEtablissement();//Rechargement de la liste
     
     }//GEN-LAST:event_btn_ajtMouseClicked
@@ -337,8 +337,54 @@ public class jpEtablissement extends javax.swing.JPanel {
             }
                // bcharge = true;
            }
+    private void retourPageAjout(){
+        txt_id.enable(true);
+        txt_id.setText("");
+        txt_nomEtabl.setText("");
+        txt_rue.setText("");
+        txt_ville.setText("");
+        txt_cp.setText("");
+        txt_tel.setText("");
+        txt_mail.setText("");
+        txt_nomResp.setText("");
+        txt_prenomResp.setText("");
+       
+        btn_ajt.setText("Ajouter");//Bouton ajt -> modifier
+        btn_annuler.setText("Annuler");//Bouton annuler -> supprimer
+        
+        this.etat = "ajt";
+    }
+    
+    
     private void btn_annulerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_annulerMouseClicked
-        // Quand on clic sur "Annuler"
+        // Quand on clic sur "Annuler" ou "supprimer"
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    
+    //Récupérer valeur des boutons radio
+    String civilite = "monsieur";
+    if(rad_mme.isSelected()){
+        civilite = "madame";
+    }
+    boolean type = false;
+    if(rad_etabl.isSelected()){
+        type = true;
+    }
+
+    Etablissement unEtabl = new Etablissement(txt_id.getText(), txt_nomEtabl.getText(), txt_rue.getText(), txt_cp.getText(), txt_ville.getText(), txt_tel.getText(), type, civilite, txt_nomResp.getText(), txt_prenomResp.getText());
+
+    Transaction tx = session.beginTransaction();
+    
+    if(this.etat.equals("voir")){ //Si on est sur voir->On supprime
+        session.delete(unEtabl);
+        retourPageAjout();
+    }
+    else //si non on annule simplement 
+    {
+        //à faire
+    }
+    tx.commit();
+    ChargerListeEtablissement();//Rechargement de la liste
+    this.etat = "ajt";
     }//GEN-LAST:event_btn_annulerMouseClicked
 
     private void txt_nomEtablActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomEtablActionPerformed
@@ -406,6 +452,7 @@ public class jpEtablissement extends javax.swing.JPanel {
                 rad_autre.setSelected(true);
             }
             
+            this.etat = "voir" ; 
             //radGroup_type.setText(unetablissement.isEtaType());
         //} 
     }//GEN-LAST:event_btn_voirMouseClicked
