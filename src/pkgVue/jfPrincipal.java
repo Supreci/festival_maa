@@ -49,8 +49,6 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenuBar = new javax.swing.JMenuBar();
         jmnAccueil = new javax.swing.JMenu();
         jmnEtablissement = new javax.swing.JMenu();
-        jmniListe1 = new javax.swing.JMenuItem();
-        jmniAjout1 = new javax.swing.JMenuItem();
         jmnTypChambre = new javax.swing.JMenu();
         jmniListe2 = new javax.swing.JMenuItem();
         jmniAjout2 = new javax.swing.JMenuItem();
@@ -68,18 +66,16 @@ public class jfPrincipal extends javax.swing.JFrame {
         jMenuBar.add(jmnAccueil);
 
         jmnEtablissement.setText("Etablissments");
-
-        jmniListe1.setText("Liste");
-        jmnEtablissement.add(jmniListe1);
-
-        jmniAjout1.setText("Ajout");
-        jmniAjout1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmniAjout1ActionPerformed(evt);
+        jmnEtablissement.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmnEtablissementMouseClicked(evt);
             }
         });
-        jmnEtablissement.add(jmniAjout1);
-
+        jmnEtablissement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnEtablissementActionPerformed(evt);
+            }
+        });
         jMenuBar.add(jmnEtablissement);
 
         jmnTypChambre.setText("Types chambres");
@@ -139,11 +135,6 @@ public class jfPrincipal extends javax.swing.JFrame {
        pack(); //pour raffraichir l'affichage
     }//GEN-LAST:event_jmnAccueilMouseClicked
 
-    private void jmniAjout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAjout1ActionPerformed
-        this.setContentPane(pnlEtablissement);
-        pack(); //pour raffraichir l'affichage
-    }//GEN-LAST:event_jmniAjout1ActionPerformed
-
     private void jmniListe2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniListe2ActionPerformed
         // TODO add your handling code here:
         this.setContentPane(pnlChambres);
@@ -156,6 +147,18 @@ public class jfPrincipal extends javax.swing.JFrame {
         this.setContentPane(pnlChambre);
         pack();
     }//GEN-LAST:event_jmniAjout2ActionPerformed
+
+    private void jmnEtablissementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnEtablissementActionPerformed
+        // TODO add your handling code here:
+        this.setContentPane(pnlEtablissement);
+        pack();
+    }//GEN-LAST:event_jmnEtablissementActionPerformed
+
+    private void jmnEtablissementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmnEtablissementMouseClicked
+        // TODO add your handling code here:
+        this.setContentPane(pnlEtablissement);
+        pack();
+    }//GEN-LAST:event_jmnEtablissementMouseClicked
 
 
     /**
@@ -199,9 +202,7 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jmnEtablissement;
     private javax.swing.JMenu jmnHebergement;
     private javax.swing.JMenu jmnTypChambre;
-    private javax.swing.JMenuItem jmniAjout1;
     private javax.swing.JMenuItem jmniAjout2;
-    private javax.swing.JMenuItem jmniListe1;
     private javax.swing.JMenuItem jmniListe2;
     // End of variables declaration//GEN-END:variables
 }
