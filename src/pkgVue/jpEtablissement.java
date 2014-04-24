@@ -208,8 +208,8 @@ public class jpEtablissement extends javax.swing.JPanel {
                                         .addComponent(rad_autre))
                                     .addComponent(txt_nomEtabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lst_etabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addComponent(lst_etabl, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btn_voir))
                                     .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
@@ -217,7 +217,7 @@ public class jpEtablissement extends javax.swing.JPanel {
                                 .addComponent(rad_mme)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rad_mr)))))
-                .addContainerGap(396, Short.MAX_VALUE))
+                .addContainerGap(343, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,10 +262,11 @@ public class jpEtablissement extends javax.swing.JPanel {
                 .addGap(7, 7, 7)
                 .addComponent(lab_resp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab_civilite)
-                    .addComponent(rad_mr)
-                    .addComponent(rad_mme))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rad_mme, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lab_civilite)
+                        .addComponent(rad_mr)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_nomResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,9 +309,9 @@ public class jpEtablissement extends javax.swing.JPanel {
     Transaction tx = session.beginTransaction();
     session.save(unEtabl);
     
-    System.out.println(unEtabl.getEtaNom());
+    //System.out.println(unEtabl.getEtaNom());
     tx.commit();
-    System.out.println(unEtabl.getEtaNom());
+   // System.out.println(unEtabl.getEtaNom());
     
     ChargerListeEtablissement();//Rechargement de la liste
     
@@ -326,6 +327,7 @@ public class jpEtablissement extends javax.swing.JPanel {
             while(itEtabl.hasNext()){
                Etablissement unetablissement = (Etablissement)itEtabl.next();
                lst_etabl.addItem(unetablissement.getEtaNom());
+               
             }
                // bcharge = true;
            }
@@ -334,54 +336,53 @@ public class jpEtablissement extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_annulerMouseClicked
 
     private void txt_nomEtablActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomEtablActionPerformed
-        // TODO add your handling code here:
+        // Event à supprimer
     }//GEN-LAST:event_txt_nomEtablActionPerformed
 
     private void lst_etablActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lst_etablActionPerformed
-        // TODO add your handling code here:
+        //  Event à supprimer
     }//GEN-LAST:event_lst_etablActionPerformed
 
     private void txt_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idActionPerformed
-        // TODO add your handling code here:
+        // Event à supprimer
     }//GEN-LAST:event_txt_idActionPerformed
 
     private void btn_voirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_voirMouseClicked
         // Quand on clic sur le bouton "Voir" (Afficher l'établissement de la liste déroulante)
-        btn_ajt.setText("Modifier");//Changer le texte des boutons 
-        btn_annuler.setText("Supprimer");
+        btn_ajt.setText("Modifier");//Bouton ajt -> modifier
+        btn_annuler.setText("Supprimer");//Bouton annuler -> supprimer
         String sNom;
-        Etablissement unetablissement;
+        Etablissement unEtabl;
   
         //if (bCharge = true){
             sNom = (String) lst_etabl.getSelectedItem();
             sNom = sNom.replace("'","''");
-            
            System.out.println(sNom);
                     
                     
             //BigDecimal i = new BigDecimal(BigInteger.ONE);
             String sQuery;
-            sQuery = "From Etablissement where nom = '"+ sNom + "'";     
+            sQuery = "From Etablissement where Eta_Nom = '"+ sNom + "'";     
             jfPrincipal.getSession().beginTransaction();
             Query q=jfPrincipal.getSession().createQuery(sQuery);
-            unetablissement = (Etablissement) q.uniqueResult();
+            unEtabl = (Etablissement) q.uniqueResult();
             
             
-             System.out.println(unetablissement.getEtaNom());
+             System.out.println(unEtabl.getEtaNom());
              
              
-            txt_id.setText(unetablissement.getEtaId());
-            txt_nomEtabl.setText(unetablissement.getEtaNom());
-            txt_rue.setText(unetablissement.getEtaRue());
-            txt_ville.setText(unetablissement.getEtaVille());
-            txt_cp.setText(unetablissement.getEtaCp());
-            txt_tel.setText(unetablissement.getEtaTel());
-            txt_mail.setText(unetablissement.getEtaMail());
-            txt_nomResp.setText(unetablissement.getEtaNomresp());
-            txt_prenomResp.setText(unetablissement.getEtaPrenomresp());
+            txt_id.setText(unEtabl.getEtaId());
+            txt_nomEtabl.setText(unEtabl.getEtaNom());
+            txt_rue.setText(unEtabl.getEtaRue());
+            txt_ville.setText(unEtabl.getEtaVille());
+            txt_cp.setText(unEtabl.getEtaCp());
+            txt_tel.setText(unEtabl.getEtaTel());
+            txt_mail.setText(unEtabl.getEtaMail());
+            txt_nomResp.setText(unEtabl.getEtaNomresp());
+            txt_prenomResp.setText(unEtabl.getEtaPrenomresp());
             
             //Boutons radios
-            if((unetablissement.getEtaCivilresp().equals("madame")))
+            if((unEtabl.getEtaCivilresp().equals("madame")))
             {
                 rad_mme.isSelected();
             }
@@ -390,7 +391,7 @@ public class jpEtablissement extends javax.swing.JPanel {
                 rad_mr.isSelected();
             }
             //rad_Group_civilite.setText(unetablissement.getEtaCivilresp());
-            if((unetablissement.isEtaType() == true ))
+            if((unEtabl.isEtaType() == true ))
             {
                 rad_etabl.isSelected();
             }
