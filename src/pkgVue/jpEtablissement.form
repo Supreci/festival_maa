@@ -79,7 +79,7 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btn_affAjt" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btn_nouveau" min="-2" max="-2" attributes="0"/>
                                           <Component id="btn_voir" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -94,7 +94,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -103,14 +103,14 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lst_etabl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lst_etabl" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="btn_voir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txt_id" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="lab_id" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_affAjt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_nouveau" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -119,7 +119,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txt_nomEtabl" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="txt_nomEtabl" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -183,7 +183,7 @@
                   <Component id="btn_ajt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_annuler" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -320,13 +320,13 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txt_nomEtabl">
       <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[120, 20]"/>
+        </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[120, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_nomEtablActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
       </AuxValues>
@@ -365,9 +365,6 @@
           <Dimension value="[120, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lst_etablActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_id">
       <Properties>
@@ -378,9 +375,6 @@
           <Dimension value="[120, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_idActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lab_id">
       <Properties>
@@ -395,13 +389,12 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_voirMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btn_affAjt">
+    <Component class="javax.swing.JButton" name="btn_nouveau">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ajout"/>
-        <Property name="actionCommand" type="java.lang.String" value="Ajout"/>
+        <Property name="text" type="java.lang.String" value="Nouveau"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_affAjtActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_nouveauActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

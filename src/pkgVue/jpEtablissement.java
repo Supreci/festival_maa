@@ -5,6 +5,7 @@
 package pkgVue;
 
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -24,7 +25,7 @@ public class jpEtablissement extends javax.swing.JPanel {
         initComponents();
         ChargerListeEtablissement();
         this.etat = "ajt" ;
-        btn_affAjt.setVisible(false);
+        btn_nouveau.setVisible(false);//Cacher le btn "Nouveau"
     }
 
     /**
@@ -67,7 +68,7 @@ public class jpEtablissement extends javax.swing.JPanel {
         txt_id = new javax.swing.JTextField();
         lab_id = new javax.swing.JLabel();
         btn_voir = new javax.swing.JButton();
-        btn_affAjt = new javax.swing.JButton();
+        btn_nouveau = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         setPreferredSize(new java.awt.Dimension(350, 500));
@@ -119,12 +120,8 @@ public class jpEtablissement extends javax.swing.JPanel {
         radGroup_type.add(rad_autre);
         rad_autre.setText("Autre");
 
+        txt_nomEtabl.setMinimumSize(new java.awt.Dimension(120, 20));
         txt_nomEtabl.setPreferredSize(new java.awt.Dimension(120, 20));
-        txt_nomEtabl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nomEtablActionPerformed(evt);
-            }
-        });
 
         btn_ajt.setText("Ajouter");
         btn_ajt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -145,19 +142,9 @@ public class jpEtablissement extends javax.swing.JPanel {
         });
 
         lst_etabl.setPreferredSize(new java.awt.Dimension(120, 20));
-        lst_etabl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lst_etablActionPerformed(evt);
-            }
-        });
 
         txt_id.setMinimumSize(new java.awt.Dimension(120, 20));
         txt_id.setPreferredSize(new java.awt.Dimension(120, 20));
-        txt_id.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_idActionPerformed(evt);
-            }
-        });
 
         lab_id.setText("Identifiant");
 
@@ -168,11 +155,10 @@ public class jpEtablissement extends javax.swing.JPanel {
             }
         });
 
-        btn_affAjt.setText("Ajout");
-        btn_affAjt.setActionCommand("Ajout");
-        btn_affAjt.addActionListener(new java.awt.event.ActionListener() {
+        btn_nouveau.setText("Nouveau");
+        btn_nouveau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_affAjtActionPerformed(evt);
+                btn_nouveauActionPerformed(evt);
             }
         });
 
@@ -224,34 +210,34 @@ public class jpEtablissement extends javax.swing.JPanel {
                                             .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btn_affAjt)
+                                            .addComponent(btn_nouveau)
                                             .addComponent(btn_voir)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
                                 .addComponent(rad_mme)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rad_mr)))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lst_etabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lst_etabl, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_voir))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab_id)
-                    .addComponent(btn_affAjt))
+                    .addComponent(btn_nouveau))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(lab_nomEtabl))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_nomEtabl, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txt_nomEtabl, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab_rue)
@@ -300,15 +286,23 @@ public class jpEtablissement extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_ajt)
                     .addComponent(btn_annuler))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ajtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ajtMouseClicked
-    // Quand on clic sur "Ajouter" ou "Modifier"
+    // Quand on clic sur "Ajouter" / "Modifier"
     Session session = HibernateUtil.getSessionFactory().openSession();
     
-    //Récupérer valeur des boutons radio
+    if(txt_id.getText().equals("") || txt_nomEtabl.getText().equals("")){
+           // JOptionPane jop = new JOptionPane();
+            JOptionPane jop = new JOptionPane();
+            jop.showMessageDialog( null, "L'Identifiant et le nom doivent être renseignés !", "Saisie incomplète", JOptionPane.WARNING_MESSAGE);
+    }
+    else{
+        
+    
+    //Récupérer les valeurs des boutons radios
     String civilite = "monsieur";
     if(rad_mme.isSelected()){
         civilite = "madame";
@@ -332,27 +326,29 @@ public class jpEtablissement extends javax.swing.JPanel {
         tx.commit();
     }
       retourPageAjout();
+      
+    }
     
     }//GEN-LAST:event_btn_ajtMouseClicked
    
     private void ChargerListeEtablissement(){
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            jfPrincipal.setSession(session);
-            lst_etabl.removeAllItems(); //vider la liste deroulante
-            String sReq= "from Etablissement";
-            jfPrincipal.getSession().beginTransaction();
-            Query q = jfPrincipal.getSession().createQuery(sReq);
-            Iterator itEtabl = q.iterate();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        jfPrincipal.setSession(session);//On recharge la session
+        lst_etabl.removeAllItems(); //Vider la liste deroulante
 
-            while(itEtabl.hasNext()){
-               Etablissement unetablissement = (Etablissement)itEtabl.next();
-               lst_etabl.addItem(unetablissement.getEtaNom());
-               
-            }
-               // bcharge = true;
-           }
-    private void retourPageAjout(){
-        txt_id.enable(true);
+        String sReq= "from Etablissement";
+        jfPrincipal.getSession().beginTransaction();
+        Query q = jfPrincipal.getSession().createQuery(sReq);
+        Iterator itEtabl = q.iterate();
+
+        while(itEtabl.hasNext()){
+           Etablissement unetablissement = (Etablissement)itEtabl.next();
+           lst_etabl.addItem(unetablissement.getEtaNom());
+
+        }
+    }
+    private void viderChamps(){
+        txt_id.enable(true); //Permet la saisie dans le champ
         txt_id.setText("");
         txt_nomEtabl.setText("");
         txt_rue.setText("");
@@ -364,19 +360,22 @@ public class jpEtablissement extends javax.swing.JPanel {
         txt_prenomResp.setText("");
         rad_mme.setSelected(true);
         rad_etabl.setSelected(true);
-       
+    }
+    private void retourPageAjout(){
+        viderChamps();
+
         btn_ajt.setText("Ajouter");//Bouton ajt -> modifier
         btn_annuler.setText("Annuler");//Bouton annuler -> supprimer
         
         ChargerListeEtablissement();//Rechargement de la liste
-        btn_affAjt.setVisible(false);
+        btn_nouveau.setVisible(false);//On désactive le bouton "Nouveau"
         
         this.etat = "ajt";
     }
     
     
     private void btn_annulerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_annulerMouseClicked
-        // Quand on clic sur "Annuler" ou "supprimer"
+        // Quand on clic sur "Annuler" / "supprimer"
     Session session = HibernateUtil.getSessionFactory().openSession();
     
     //Récupérer valeur des boutons radio
@@ -397,42 +396,26 @@ public class jpEtablissement extends javax.swing.JPanel {
         session.delete(unEtabl);
         retourPageAjout();
     }
-    else //si non on annule simplement 
+    else //si non on est dans ajout et on annule en vidant les champs
     {
-        //à faire
+        viderChamps();
     }
     tx.commit();
     ChargerListeEtablissement();//Rechargement de la liste
     this.etat = "ajt";
     }//GEN-LAST:event_btn_annulerMouseClicked
 
-    private void txt_nomEtablActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomEtablActionPerformed
-        // Event à supprimer
-    }//GEN-LAST:event_txt_nomEtablActionPerformed
-
-    private void lst_etablActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lst_etablActionPerformed
-        //  Event à supprimer
-    }//GEN-LAST:event_lst_etablActionPerformed
-
-    private void txt_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idActionPerformed
-        // Event à supprimer
-    }//GEN-LAST:event_txt_idActionPerformed
-
     private void btn_voirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_voirMouseClicked
         // Quand on clic sur le bouton "Voir" (Afficher l'établissement de la liste déroulante)
         btn_ajt.setText("Modifier");//Bouton ajt -> modifier
         btn_annuler.setText("Supprimer");//Bouton annuler -> supprimer
-        btn_affAjt.setVisible(true);//Affiche le bouton "Ajout"
+        btn_nouveau.setVisible(true);//Affiche le bouton "Nouveau"
         String sNom;
         Etablissement unEtabl;
   
-        //if (bCharge = true){
             sNom = (String) lst_etabl.getSelectedItem();
             sNom = sNom.replace("'","''");
-            //System.out.println(sNom);
                     
-                    
-            //BigDecimal i = new BigDecimal(BigInteger.ONE);
             String sQuery;
             sQuery = "From Etablissement where Eta_Nom = '"+ sNom + "'";     
             jfPrincipal.getSession().beginTransaction();
@@ -462,7 +445,6 @@ public class jpEtablissement extends javax.swing.JPanel {
             {
                 rad_mr.setSelected(true);
             }
-            //rad_Group_civilite.setText(unetablissement.getEtaCivilresp());
             if((unEtabl.isEtaType() == true ))
             {
                 rad_etabl.setSelected(true);
@@ -473,20 +455,18 @@ public class jpEtablissement extends javax.swing.JPanel {
             }
             
             this.etat = "voir" ; 
-            //radGroup_type.setText(unetablissement.isEtaType());
-        //} 
     }//GEN-LAST:event_btn_voirMouseClicked
 
-    private void btn_affAjtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_affAjtActionPerformed
+    private void btn_nouveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nouveauActionPerformed
         // Quand on clic sur le bouton "Ajout" (Affiche la page d'ajout)
         retourPageAjout();
         
-    }//GEN-LAST:event_btn_affAjtActionPerformed
+    }//GEN-LAST:event_btn_nouveauActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_affAjt;
     private javax.swing.JButton btn_ajt;
     private javax.swing.JButton btn_annuler;
+    private javax.swing.JButton btn_nouveau;
     private javax.swing.JButton btn_voir;
     private javax.swing.JLabel lab_civilite;
     private javax.swing.JLabel lab_cp4;
