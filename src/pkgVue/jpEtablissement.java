@@ -301,32 +301,61 @@ public class jpEtablissement extends javax.swing.JPanel {
     }
     else{
         
-    
-    //Récupérer les valeurs des boutons radios
-    String civilite = "monsieur";
-    if(rad_mme.isSelected()){
-        civilite = "madame";
-    }
-    boolean type = false;
-    if(rad_etabl.isSelected()){
-        type = true;
-    }
+        String rue;
+        if(txt_rue.getText().equals(""))
+            {rue = " ";}
+        else {rue = txt_rue.getText();}
 
-    Etablissement unEtabl = new Etablissement(txt_id.getText(), txt_nomEtabl.getText(), txt_rue.getText(), txt_cp.getText(), txt_ville.getText(), txt_tel.getText(), type, civilite, txt_nomResp.getText(), txt_prenomResp.getText());
+        String cp;
+        if(txt_cp.getText().equals(""))
+            {cp = " ";}
+         else {cp = txt_cp.getText();}
 
-    Transaction tx = session.beginTransaction();
-    
-    if(this.etat.equals("ajt")){ //Si on est sur ajouter->On ajoute
-        session.save(unEtabl);
-        tx.commit();
-    }
-    else //si non on modifie 
-    {
-        session.update(unEtabl);
-        tx.commit();
-    }
-      retourPageAjout();
-      
+        String ville;
+        if(txt_ville.getText().equals(""))
+            {ville = " ";}
+         else {ville = txt_ville.getText();}
+
+        String tel;
+        if(txt_tel.getText().equals(""))
+             {tel = " ";}
+         else {tel = txt_tel.getText();}
+
+        String nomResp;
+        if(txt_nomResp.getText().equals(""))
+             {nomResp = " ";}
+         else {nomResp = txt_nomResp.getText();}
+
+        String prenomResp;
+        if(txt_prenomResp.getText().equals(""))
+             {prenomResp = " ";}
+         else {prenomResp = txt_prenomResp.getText();}
+
+        //Récupérer les valeurs des boutons radios
+        String civilite = "monsieur";
+        if(rad_mme.isSelected()){
+            civilite = "madame";
+        }
+        boolean type = false;
+        if(rad_etabl.isSelected()){
+            type = true;
+        }
+
+       Etablissement unEtabl = new Etablissement(txt_id.getText(), txt_nomEtabl.getText(), rue, cp, ville, tel, type, civilite, nomResp, prenomResp);
+
+        Transaction tx = session.beginTransaction();
+
+        if(this.etat.equals("ajt")){ //Si on est sur ajouter->On ajoute
+            session.save(unEtabl);
+            tx.commit();
+        }
+        else //si non on modifie 
+        {
+            session.update(unEtabl);
+            tx.commit();
+        }
+          retourPageAjout();
+
     }
     
     }//GEN-LAST:event_btn_ajtMouseClicked
@@ -393,16 +422,21 @@ public class jpEtablissement extends javax.swing.JPanel {
     Transaction tx = session.beginTransaction();
     
     if(this.etat.equals("voir")){ //Si on est sur voir->On supprime
-        session.delete(unEtabl);
-        retourPageAjout();
+        
+        int retour = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+ 
+        if(retour == JOptionPane.YES_OPTION){
+            session.delete(unEtabl);
+            tx.commit();
+            ChargerListeEtablissement();
+            retourPageAjout();
+            this.etat = "ajt";
+        }
     }
     else //si non on est dans ajout et on annule en vidant les champs
     {
         viderChamps();
     }
-    tx.commit();
-    ChargerListeEtablissement();//Rechargement de la liste
-    this.etat = "ajt";
     }//GEN-LAST:event_btn_annulerMouseClicked
 
     private void btn_voirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_voirMouseClicked
@@ -421,9 +455,6 @@ public class jpEtablissement extends javax.swing.JPanel {
             jfPrincipal.getSession().beginTransaction();
             Query q=jfPrincipal.getSession().createQuery(sQuery);
             unEtabl = (Etablissement) q.uniqueResult();
-            
-            
-            // System.out.println(unEtabl.getEtaNom());
              
             txt_id.enable(false);
             txt_id.setText(unEtabl.getEtaId());
