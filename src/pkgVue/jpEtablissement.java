@@ -24,6 +24,7 @@ public class jpEtablissement extends javax.swing.JPanel {
         initComponents();
         ChargerListeEtablissement();
         this.etat = "ajt" ;
+        btn_affAjt.setVisible(false);
     }
 
     /**
@@ -66,9 +67,10 @@ public class jpEtablissement extends javax.swing.JPanel {
         txt_id = new javax.swing.JTextField();
         lab_id = new javax.swing.JLabel();
         btn_voir = new javax.swing.JButton();
+        btn_affAjt = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        setPreferredSize(new java.awt.Dimension(675, 500));
+        setPreferredSize(new java.awt.Dimension(350, 500));
         setRequestFocusEnabled(false);
 
         lab_nomEtabl.setText("Nom");
@@ -166,6 +168,14 @@ public class jpEtablissement extends javax.swing.JPanel {
             }
         });
 
+        btn_affAjt.setText("Ajout");
+        btn_affAjt.setActionCommand("Ajout");
+        btn_affAjt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_affAjtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,28 +219,32 @@ public class jpEtablissement extends javax.swing.JPanel {
                                         .addComponent(rad_autre))
                                     .addComponent(txt_nomEtabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lst_etabl, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lst_etabl, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btn_voir))
-                                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btn_affAjt)
+                                            .addComponent(btn_voir)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
                                 .addComponent(rad_mme)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rad_mr)))))
-                .addContainerGap(343, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lst_etabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_voir))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lab_id))
+                    .addComponent(lab_id)
+                    .addComponent(btn_affAjt))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -286,7 +300,7 @@ public class jpEtablissement extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_ajt)
                     .addComponent(btn_annuler))
-                .addContainerGap())
+                .addContainerGap(47, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -310,20 +324,20 @@ public class jpEtablissement extends javax.swing.JPanel {
     
     if(this.etat.equals("ajt")){ //Si on est sur ajouter->On ajoute
         session.save(unEtabl);
+        tx.commit();
     }
     else //si non on modifie 
     {
         session.update(unEtabl);
-        ChargerListeEtablissement();//Rechargement de la liste
-        retourPageAjout();
-       
+        tx.commit();
     }
-    tx.commit();
-    ChargerListeEtablissement();//Rechargement de la liste
+      retourPageAjout();
     
     }//GEN-LAST:event_btn_ajtMouseClicked
    
     private void ChargerListeEtablissement(){
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            jfPrincipal.setSession(session);
             lst_etabl.removeAllItems(); //vider la liste deroulante
             String sReq= "from Etablissement";
             jfPrincipal.getSession().beginTransaction();
@@ -348,9 +362,14 @@ public class jpEtablissement extends javax.swing.JPanel {
         txt_mail.setText("");
         txt_nomResp.setText("");
         txt_prenomResp.setText("");
+        rad_mme.setSelected(true);
+        rad_etabl.setSelected(true);
        
         btn_ajt.setText("Ajouter");//Bouton ajt -> modifier
         btn_annuler.setText("Annuler");//Bouton annuler -> supprimer
+        
+        ChargerListeEtablissement();//Rechargement de la liste
+        btn_affAjt.setVisible(false);
         
         this.etat = "ajt";
     }
@@ -403,6 +422,7 @@ public class jpEtablissement extends javax.swing.JPanel {
         // Quand on clic sur le bouton "Voir" (Afficher l'établissement de la liste déroulante)
         btn_ajt.setText("Modifier");//Bouton ajt -> modifier
         btn_annuler.setText("Supprimer");//Bouton annuler -> supprimer
+        btn_affAjt.setVisible(true);//Affiche le bouton "Ajout"
         String sNom;
         Etablissement unEtabl;
   
@@ -457,7 +477,14 @@ public class jpEtablissement extends javax.swing.JPanel {
         //} 
     }//GEN-LAST:event_btn_voirMouseClicked
 
+    private void btn_affAjtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_affAjtActionPerformed
+        // Quand on clic sur le bouton "Ajout" (Affiche la page d'ajout)
+        retourPageAjout();
+        
+    }//GEN-LAST:event_btn_affAjtActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_affAjt;
     private javax.swing.JButton btn_ajt;
     private javax.swing.JButton btn_annuler;
     private javax.swing.JButton btn_voir;
