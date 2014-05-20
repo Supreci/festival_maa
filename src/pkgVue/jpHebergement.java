@@ -5,8 +5,15 @@
 package pkgVue;
 
 import java.util.Iterator;
+import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import pkgEntite.Etablissement;
+import pkgEntite.HibernateUtil;
+import pkgEntite.Typechambre;
+import pkgEntite.Offre;
+import pkgEntite.OffreId;
 
 /**
  *
@@ -16,13 +23,17 @@ public class jpHebergement extends javax.swing.JPanel {
     
     //varriable pour recharger le tableau
     boolean bcharge = false;
+    
+    //varriable id de l'etablissement
+    String idEtabli = "false";
+    
+    private String EtabId = "";
 
     /**
      * Creates new form jpHebergement
      */
     public jpHebergement() {
         initComponents();
-        ChargerListeEtablissement();
     }
 
     /**
@@ -38,8 +49,8 @@ public class jpHebergement extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblHebergement = new javax.swing.JTable();
         jcbEtablissement = new javax.swing.JComboBox();
-        jComboBox1 = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
+        jcbTypeChambre = new javax.swing.JComboBox();
+        jtfNbChambre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -79,11 +90,16 @@ public class jpHebergement extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jcbTypeChambre.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbTypeChambre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jcbTypeChambreActionPerformed(evt);
+            }
+        });
+
+        jtfNbChambre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfNbChambreActionPerformed(evt);
             }
         });
 
@@ -121,14 +137,14 @@ public class jpHebergement extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbTypeChambre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(101, 101, 101)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jbtnValider)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jtfNbChambre, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -144,8 +160,8 @@ public class jpHebergement extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbTypeChambre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfNbChambre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -154,31 +170,183 @@ public class jpHebergement extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-       private void ChargerListeEtablissement(){
+       public void ChargerListeTypeChambre(){
+            jcbTypeChambre.removeAllItems(); //vider la liste deroulante
+            String sReq= "from Typechambre";
+            jfPrincipal.getSession().beginTransaction();
+            Query q = jfPrincipal.getSession().createQuery(sReq);
+            Iterator itTch = q.iterate(); 
+
+            while(itTch.hasNext()){
+               Typechambre untypechambre = (Typechambre)itTch.next();
+               jcbTypeChambre.addItem(untypechambre.getTchId());
+            }
+         }
+         
+       public void ChargerListeEtablissement(){
             jcbEtablissement.removeAllItems(); //vider la liste deroulante
             String sReq= "from Etablissement";
             jfPrincipal.getSession().beginTransaction();
             Query q = jfPrincipal.getSession().createQuery(sReq);
-            Iterator itEtabl = q.iterate();
+            Iterator itEtabl = q.iterate(); 
 
             while(itEtabl.hasNext()){
                Etablissement unetablissement = (Etablissement)itEtabl.next();
                jcbEtablissement.addItem(unetablissement.getEtaNom());
             }
+            
             bcharge = true;
            }
+
+       public void ChargerNbChambre(String pEtaId, String pTChambre){
+            jtfNbChambre.setText(""); //vider la ligne
+        String sReq = "From Offre Where Off_Etablissement = ? And Off_Typechambre = ?";
+        Query q = jfPrincipal.getSession().createQuery(sReq);
+        q.setParameter(0, pEtaId); // 0 = premiere parametre
+        q.setParameter(1, pTChambre);
+        Offre uneOffre = (Offre) q.uniqueResult();
+        try {
+            Byte test = uneOffre.getOffNbchambres();
+            jtfNbChambre.setText(test.toString());  
+        } 
+        catch (Exception e) {
+            jtfNbChambre.setText("0");
+        }
+    }
+       
+    private void ChargerTableChambre(String pEtaId){
+         //On charge la liste des types de chambre correspondant à l'établissement selectionné
+        int nbligne;
+        int i;
+        nbligne = jtblHebergement.getRowCount();
+        if(nbligne >= 0){
+            for(i=0;i <nbligne; i++){
+                //
+                ((DefaultTableModel)jtblHebergement.getModel()).removeRow(0);
+            }
+                String sReq = "From Offre Where Off_Etablissement = ?";
+                Query q = jfPrincipal.getSession().createQuery(sReq);
+                q.setParameter(0, pEtaId); // 0 = premiere collone du tableau
+                Iterator tch = q.iterate(); // lit la ligne puis la suivente ... boucle
+                while(tch.hasNext())
+                {          
+                    Offre uneOffre = (Offre) tch.next();
+                    ((DefaultTableModel) jtblHebergement.getModel()).addRow(new Object[] {uneOffre.getTypechambre().getTchId(), uneOffre.getTypechambre().getTchLibelle(), uneOffre.getOffNbchambres()});
+                }
+      }
+    }
+    
+//    public void changerOffre(Typechambre typechambre, Etablissement etablissement, byte offNbchambres){
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        try {
+//            String sReq = "Select id From Offre Where Off_Etablissement = ? And Off_Typechambre = ?";
+//            Query q = jfPrincipal.getSession().createQuery(sReq);
+//            q.setParameter(0, etablissement); // 0 = premiere collone du tableau
+//            q.setParameter(1, typechambre);
+//            OffreId id;
+//            id = 100;
+//            Offre uneoffre = new Offre(id, etablissement, typechambre, offNbchambres); 
+//            Transaction tx = session.beginTransaction();
+//            session.update(uneoffre);
+//
+//        } 
+//        catch (Exception e) {
+//           String sReq = "Select MAX(id) From Offre Where Off_Etablissement = ? And Off_Typechambre = ?";
+//           Query q = jfPrincipal.getSession().createQuery(sReq);
+//           q.setParameter(0, etablissement); // 0 = premiere collone du tableau
+//           q.setParameter(1, typechambre);
+//           OffreId id;
+//           id = q + 1 ;
+//           Offre uneoffre = new Offre(id, etablissement, typechambre, offNbchambres); 
+//           Transaction tx = session.beginTransaction();
+//           session.save(uneoffre);
+//        }
+//        tx.commit();
+//        ChargerTableChambre(etablissement);
+//    }
+    public void changerOffre(String pEtaId, String pTchId, String pNbTyp){ 
+
+        try {
+            String sReq = "From Offre Where Off_Typechambre = ? And Off_Etablissement = ?";
+            Query q = jfPrincipal.getSession().createQuery(sReq);
+            q.setParameter(0, pTchId);
+            q.setParameter(1, pEtaId);
+            Offre uneOffre = (Offre) q.uniqueResult();
+            Byte NbTyp = Byte.parseByte(pNbTyp);
+            uneOffre.setOffNbchambres(NbTyp);
+            Transaction tx = jfPrincipal.getSession().beginTransaction();
+            tx.commit();
+            jfPrincipal.getSession().update(uneOffre);
+        } 
+        catch (Exception e) {
+              OffreId offreid=new OffreId(pEtaId, pTchId);
+
+              Typechambre typech = (Typechambre)jfPrincipal.getSession().load(Typechambre.class,pTchId);
+              Etablissement etabli = (Etablissement)jfPrincipal.getSession().load(Etablissement.class,pEtaId);
+              Byte NbTyp = Byte.parseByte(pNbTyp);
+              Offre unOffre=new Offre(offreid, typech, etabli, NbTyp);
+              jfPrincipal.getSession().save(unOffre); 
+        }
+        ChargerTableChambre(pEtaId);
+    } 
+    
+    private String getEtabId(String pEtabNom)
+        {                       
+            String sReq = "From Etablissement Where Eta_Nom = ?";
+            System.out.println(pEtabNom);
+            jfPrincipal.getSession().beginTransaction();
+            Query q = jfPrincipal.getSession().createQuery(sReq);
+            q.setParameter(0, pEtabNom);
+            Etablissement  unEtab = (Etablissement)q.uniqueResult();          
+            String EtabId =  (String) unEtab.getEtaId();
+            return EtabId;
+            
+         
+        }
     
     
     private void jcbEtablissementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEtablissementActionPerformed
-        // TODO add your handling code here:
+         //Code permettant de récupérer l'id correspondant au nom d'établissement selectionné
+         //String EtabNom = (String) jcbEtablissement.getSelectedItem().toString();
+         //if (EtabNom != null)
+        if(bcharge == true)
+         {
+            String test =  (String)jcbEtablissement.getSelectedItem();
+            System.out.println(test);
+           // String sReq = "From Etablissement Where Eta_Nom = '"+test+"'";
+            String sReq = "From Etablissement Where Eta_Nom = ?";
+            //System.out.println(EtabNom);
+            //jfPrincipal.getSession().beginTransaction();
+            Query q = jfPrincipal.getSession().createQuery(sReq);
+           q.setParameter(0, test); 
+            Etablissement  unEtab = (Etablissement) q.uniqueResult();
+            String id = unEtab.getEtaId();
+            System.out.println(id);
+            //String EtabId =  (String)unEtab.getEtaId();
+            ChargerTableChambre(id);
+            
+            String TypeChambre =  (String)jcbTypeChambre.getSelectedItem();
+            ChargerNbChambre(id, TypeChambre);
+         }
     }//GEN-LAST:event_jcbEtablissementActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jtfNbChambreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNbChambreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jtfNbChambreActionPerformed
 
     private void jbtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnValiderActionPerformed
-        // TODO add your handling code here:
+                String pEta = (String)jcbEtablissement.getSelectedItem();
+        String pEtaId = getEtabId(pEta);
+        String pTchId = (String)jcbTypeChambre.getSelectedItem();
+        try {  
+            String pNbTyp = (String)jtfNbChambre.getText();
+            changerOffre(pEtaId, pTchId, pNbTyp);
+            
+        } 
+        catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(null,"Erreur : Non numerique");
+            ChargerNbChambre(pEtaId, pTchId);
+        }
     }//GEN-LAST:event_jbtnValiderActionPerformed
 
     private void jcbEtablissementFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbEtablissementFocusGained
@@ -189,16 +357,39 @@ public class jpHebergement extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbEtablissementMouseClicked
 
+    private void jcbTypeChambreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTypeChambreActionPerformed
+        //System.out.println("test");
+            if(bcharge == true)
+         {
+            String test =  (String)jcbEtablissement.getSelectedItem();
+            System.out.println(test);
+           // String sReq = "From Etablissement Where Eta_Nom = '"+test+"'";
+            String sReq = "From Etablissement Where Eta_Nom = ?";
+            //System.out.println(EtabNom);
+            //jfPrincipal.getSession().beginTransaction();
+            Query q = jfPrincipal.getSession().createQuery(sReq);
+           q.setParameter(0, test); 
+            Etablissement  unEtab = (Etablissement) q.uniqueResult();
+            String id = unEtab.getEtaId();
+            System.out.println(id);
+            //String EtabId =  (String)unEtab.getEtaId();
+            ChargerTableChambre(id);
+            
+            String TypeChambre =  (String)jcbTypeChambre.getSelectedItem();
+            ChargerNbChambre(id, TypeChambre);
+         }
+    }//GEN-LAST:event_jcbTypeChambreActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jbtnValider;
     private javax.swing.JComboBox jcbEtablissement;
+    private javax.swing.JComboBox jcbTypeChambre;
     private javax.swing.JTable jtblHebergement;
+    private javax.swing.JTextField jtfNbChambre;
     // End of variables declaration//GEN-END:variables
 }
