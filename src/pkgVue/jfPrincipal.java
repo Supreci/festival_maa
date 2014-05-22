@@ -127,8 +127,6 @@ public class jfPrincipal extends javax.swing.JFrame {
 
     private void jmnHebergementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmnHebergementMouseClicked
        this.setContentPane(pnlHebergement);
-       pnlHebergement.ChargerListeEtablissement();
-       pnlHebergement.ChargerListeTypeChambre();
        pack(); //pour raffraichir l'affichage
     }//GEN-LAST:event_jmnHebergementMouseClicked
 

@@ -34,6 +34,8 @@ public class jpHebergement extends javax.swing.JPanel {
      */
     public jpHebergement() {
         initComponents();
+        ChargerListeEtablissement();
+        ChargerListeTypeChambre();
     }
 
     /**
