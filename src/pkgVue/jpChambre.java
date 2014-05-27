@@ -105,20 +105,25 @@ public class jpChambre extends javax.swing.JPanel {
 
     private void jbtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnValiderActionPerformed
         // TODO add your handling code here:
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Typechambre unTypeChambre = new Typechambre(jtxtCode.getText(), jtxtLibelle.getText());
-        //unEtabl.getEtaId();
-        // unEtabl.setEtaNom(txt_nomEtabl.getText());
+            Typechambre unTypeChambre = new Typechambre(jtxtCode.getText(), jtxtLibelle.getText());
+            //unEtabl.getEtaId();
+            // unEtabl.setEtaNom(txt_nomEtabl.getText());
 
 
-        Transaction tx = session.beginTransaction();
-        session.save(unTypeChambre);
-        tx.commit();
-        JOptionPane.showMessageDialog(null, "Ajout efféctué avec succès");
+            Transaction tx = session.beginTransaction();
+            session.save(unTypeChambre);
+            tx.commit();
+            JOptionPane.showMessageDialog(null, "Ajout efféctué avec succès");
 
-        System.out.println(unTypeChambre.getTchId());
-        System.out.println(unTypeChambre.getTchLibelle());
+            System.out.println(unTypeChambre.getTchId());
+            System.out.println(unTypeChambre.getTchLibelle());
+        }
+        catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Ajout impossible");
+        }
     }//GEN-LAST:event_jbtnValiderActionPerformed
 
     private void jbtnAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAnnulerActionPerformed
