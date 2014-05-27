@@ -139,7 +139,7 @@ public class jfPrincipal extends javax.swing.JFrame {
     private void jmniListe2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniListe2ActionPerformed
         // TODO add your handling code here:
         this.setContentPane(pnlChambres);
-        //pnlChambres.chargerTabl();
+        pnlChambres.chargerTabl();
         pack();
     }//GEN-LAST:event_jmniListe2ActionPerformed
 
