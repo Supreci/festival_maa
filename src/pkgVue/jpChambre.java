@@ -4,6 +4,7 @@
  */
 package pkgVue;
 
+import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pkgEntite.HibernateUtil;
@@ -46,6 +47,11 @@ public class jpChambre extends javax.swing.JPanel {
         jlblLibelle.setText("Libelle");
 
         jbtnAnnuler.setText("Annuler");
+        jbtnAnnuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAnnulerActionPerformed(evt);
+            }
+        });
 
         jbtnValider.setText("Valider");
         jbtnValider.addActionListener(new java.awt.event.ActionListener() {
@@ -103,16 +109,23 @@ public class jpChambre extends javax.swing.JPanel {
 
         Typechambre unTypeChambre = new Typechambre(jtxtCode.getText(), jtxtLibelle.getText());
         //unEtabl.getEtaId();
-       // unEtabl.setEtaNom(txt_nomEtabl.getText());
+        // unEtabl.setEtaNom(txt_nomEtabl.getText());
 
 
         Transaction tx = session.beginTransaction();
         session.save(unTypeChambre);
         tx.commit();
+        JOptionPane.showMessageDialog(null, "Ajout efféctué avec succès");
 
         System.out.println(unTypeChambre.getTchId());
         System.out.println(unTypeChambre.getTchLibelle());
     }//GEN-LAST:event_jbtnValiderActionPerformed
+
+    private void jbtnAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAnnulerActionPerformed
+        // TODO add your handling code here:
+        jtxtCode.setText("");
+        jtxtLibelle.setText("");
+    }//GEN-LAST:event_jbtnAnnulerActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtnAnnuler;

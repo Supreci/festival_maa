@@ -5,8 +5,10 @@
 package pkgVue;
 
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 import pkgEntite.Typechambre;
 
 /**
@@ -20,7 +22,7 @@ public class jpChambres extends javax.swing.JPanel {
      */
     public jpChambres() {
         initComponents();
-        chargerTabl();
+        //chargerTabl();
     }
     
     public void chargerTabl() {
@@ -42,7 +44,17 @@ public class jpChambres extends javax.swing.JPanel {
                     ((DefaultTableModel) jtblTypeChambres.getModel()).addRow(new Object[]{unTypeChambre.getTchId(), unTypeChambre.getTchLibelle()});
                 }
             }
+    }
+    
+    private void chargerTypeChambre(Object cellule){ 
+        jfPrincipal.getSession().beginTransaction();
+        String sReq = "from Typechambre where TCH_ID = ?"; 
+        Query q = jfPrincipal.getSession().createQuery(sReq);
+        q.setParameter(0, cellule.toString());                  
+        Typechambre unTypechambre = (Typechambre)q.uniqueResult();
         
+        idTypChambre.setText(unTypechambre.getTchId());             
+        txtLibTypChambre.setText(unTypechambre.getTchLibelle());
     }
     
     /**
@@ -56,13 +68,14 @@ public class jpChambres extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblTypeChambres = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jbtnModifier = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        txtLibTypChambre = new javax.swing.JTextField();
+        idTypChambre = new javax.swing.JLabel();
+        jbtnSupprimer = new javax.swing.JButton();
 
         jtblTypeChambres.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,9 +96,19 @@ public class jpChambres extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        jtblTypeChambres.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblTypeChambresMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtblTypeChambres);
 
-        jButton1.setText("Modifier");
+        jbtnModifier.setText("Modifier");
+        jbtnModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnModifierActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel1.setText("Liste des types de chambre");
@@ -97,9 +120,16 @@ public class jpChambres extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel4.setText("Formulaire de modification");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtLibTypChambre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtLibTypChambreActionPerformed(evt);
+            }
+        });
+
+        jbtnSupprimer.setText("Supprimer");
+        jbtnSupprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSupprimerActionPerformed(evt);
             }
         });
 
@@ -119,7 +149,7 @@ public class jpChambres extends javax.swing.JPanel {
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(85, 85, 85)
-                                .addComponent(jButton1))
+                                .addComponent(jbtnModifier))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,13 +157,15 @@ public class jpChambres extends javax.swing.JPanel {
                                     .addComponent(jLabel2))
                                 .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtLibTypChambre, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(idTypChambre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 114, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbtnSupprimer)
+                    .addComponent(jLabel4))
                 .addGap(123, 123, 123))
         );
         layout.setVerticalGroup(
@@ -148,30 +180,90 @@ public class jpChambres extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(idTypChambre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLibTypChambre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnModifier)
+                    .addComponent(jbtnSupprimer))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtLibTypChambreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLibTypChambreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtLibTypChambreActionPerformed
+
+    private void jbtnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModifierActionPerformed
+        // TODO add your handling code here:
+        Transaction tx = jfPrincipal.getSession().beginTransaction();//Récupere la session
+         
+        String sReq = "from Typechambre where TCh_Id  = ?";//requete SQL
+        Query q = jfPrincipal.getSession().createQuery(sReq); //execute la requete
+        q.setParameter(0, idTypChambre.getText() );
+        Typechambre unTypechambre = (Typechambre)q.uniqueResult();
+        unTypechambre.setTchId(idTypChambre.getText());
+        unTypechambre.setTchLibelle(txtLibTypChambre.getText());
+            if (unTypechambre!=null){
+            jfPrincipal.getSession().update(unTypechambre);
+            tx.commit();
+            //JOptionPane.showMessageDialog(null, "Modification effectuée avec succès");
+            }
+        idTypChambre.setText("");
+        txtLibTypChambre.setText("");
+        ((DefaultTableModel)jtblTypeChambres.getModel()).removeRow(0);
+        chargerTabl();
+    }//GEN-LAST:event_jbtnModifierActionPerformed
+
+    private void jtblTypeChambresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblTypeChambresMouseClicked
+        // TODO add your handling code here:
+        int ligne = jtblTypeChambres.getSelectedRow();
+        Object cellule = jtblTypeChambres.getValueAt(ligne,0);
+     
+        chargerTypeChambre(cellule);                    
+    }//GEN-LAST:event_jtblTypeChambresMouseClicked
+
+    private void jbtnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSupprimerActionPerformed
+        // TODO add your handling code here:
+        try{
+            Transaction tx = jfPrincipal.getSession().beginTransaction();
+         
+            String sReq = "from Typechambre where TCH_ID  = ?";
+            Query q = jfPrincipal.getSession().createQuery(sReq);
+            q.setParameter(0, idTypChambre.getText());
+            Typechambre unTypechambre = (Typechambre)q.uniqueResult();
+        
+            if (unTypechambre!=null){
+
+                jfPrincipal.getSession().delete(unTypechambre);
+
+                tx.commit();
+
+                JOptionPane.showMessageDialog(null, "Suppression efféctué avec succès");
+            }
+        
+            idTypChambre.setText("");
+            txtLibTypChambre.setText("");
+            chargerTabl();
+        }
+        catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Suppression impossible");
+        }
+    }//GEN-LAST:event_jbtnSupprimerActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel idTypChambre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton jbtnModifier;
+    private javax.swing.JButton jbtnSupprimer;
     private javax.swing.JTable jtblTypeChambres;
+    private javax.swing.JTextField txtLibTypChambre;
     // End of variables declaration//GEN-END:variables
 }
