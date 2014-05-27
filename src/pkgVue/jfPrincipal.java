@@ -27,6 +27,7 @@ public class jfPrincipal extends javax.swing.JFrame {
      */
     public jfPrincipal() {
         initComponents();
+        this.setContentPane(pnlAccueil);
     }
 
     public static Session getSession() {
@@ -115,11 +116,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 675, Short.MAX_VALUE)
+            .addGap(0, 753, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGap(0, 364, Short.MAX_VALUE)
         );
 
         pack();
