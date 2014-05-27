@@ -5,6 +5,7 @@
 package pkgVue;
 
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,13 +17,15 @@ import pkgEntite.HibernateUtil;
  * @author etudsio
  */
 public class jpEtablissement extends javax.swing.JPanel {
-
+    private String etat;
     /**
      * Creates new form jpEtablissement
      */
     public jpEtablissement() {
         initComponents();
         ChargerListeEtablissement();
+        this.etat = "ajt" ;
+        btn_nouveau.setVisible(false);//Cacher le btn "Nouveau"
     }
 
     /**
@@ -65,9 +68,10 @@ public class jpEtablissement extends javax.swing.JPanel {
         txt_id = new javax.swing.JTextField();
         lab_id = new javax.swing.JLabel();
         btn_voir = new javax.swing.JButton();
+        btn_nouveau = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        setPreferredSize(new java.awt.Dimension(675, 400));
+        setPreferredSize(new java.awt.Dimension(350, 500));
         setRequestFocusEnabled(false);
 
         lab_nomEtabl.setText("Nom");
@@ -116,12 +120,8 @@ public class jpEtablissement extends javax.swing.JPanel {
         radGroup_type.add(rad_autre);
         rad_autre.setText("Autre");
 
+        txt_nomEtabl.setMinimumSize(new java.awt.Dimension(120, 20));
         txt_nomEtabl.setPreferredSize(new java.awt.Dimension(120, 20));
-        txt_nomEtabl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nomEtablActionPerformed(evt);
-            }
-        });
 
         btn_ajt.setText("Ajouter");
         btn_ajt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,19 +142,9 @@ public class jpEtablissement extends javax.swing.JPanel {
         });
 
         lst_etabl.setPreferredSize(new java.awt.Dimension(120, 20));
-        lst_etabl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lst_etablActionPerformed(evt);
-            }
-        });
 
         txt_id.setMinimumSize(new java.awt.Dimension(120, 20));
         txt_id.setPreferredSize(new java.awt.Dimension(120, 20));
-        txt_id.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_idActionPerformed(evt);
-            }
-        });
 
         lab_id.setText("Identifiant");
 
@@ -162,6 +152,13 @@ public class jpEtablissement extends javax.swing.JPanel {
         btn_voir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_voirMouseClicked(evt);
+            }
+        });
+
+        btn_nouveau.setText("Nouveau");
+        btn_nouveau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_nouveauActionPerformed(evt);
             }
         });
 
@@ -208,52 +205,59 @@ public class jpEtablissement extends javax.swing.JPanel {
                                         .addComponent(rad_autre))
                                     .addComponent(txt_nomEtabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lst_etabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btn_voir))
-                                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lst_etabl, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btn_nouveau)
+                                            .addComponent(btn_voir)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
                                 .addComponent(rad_mme)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rad_mr)))))
-                .addContainerGap(396, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lst_etabl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lst_etabl, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_voir))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lab_id))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lab_id)
+                    .addComponent(btn_nouveau))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lab_nomEtabl, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txt_nomEtabl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(lab_nomEtabl))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_nomEtabl, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab_rue)
-                    .addComponent(txt_rue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_rue, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab_ville)
-                    .addComponent(txt_ville, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_ville, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab_cp4)
-                    .addComponent(txt_cp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_cp, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab_tel)
-                    .addComponent(txt_tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_tel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lab_mail)
-                    .addComponent(txt_mail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_mail, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab_type)
@@ -262,150 +266,238 @@ public class jpEtablissement extends javax.swing.JPanel {
                 .addGap(7, 7, 7)
                 .addComponent(lab_resp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab_civilite)
-                    .addComponent(rad_mr)
-                    .addComponent(rad_mme))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rad_mme, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lab_civilite)
+                        .addComponent(rad_mr)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_nomResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_nomResp, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab_nomResp))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txt_prenomResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lab_prenomResp))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(lab_prenomResp))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_prenomResp, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_ajt)
                     .addComponent(btn_annuler))
-                .addContainerGap())
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ajtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ajtMouseClicked
-        // Quand on clic sur "Ajouter"
+    // Quand on clic sur "Ajouter" / "Modifier"
     Session session = HibernateUtil.getSessionFactory().openSession();
-    String civilite ;
     
-    //Récupérer valeur des boutons radio
-    if(rad_mme.isSelected()){
-        civilite = "madame";
+    if(txt_id.getText().equals("") || txt_nomEtabl.getText().equals("")){
+           // JOptionPane jop = new JOptionPane();
+            JOptionPane jop = new JOptionPane();
+            jop.showMessageDialog( null, "L'Identifiant et le nom doivent être renseignés !", "Saisie incomplète", JOptionPane.WARNING_MESSAGE);
     }
     else{
-        civilite = "monsieur";
-    }
-    boolean type ;
-    if(rad_etabl.isSelected()){
-        type = true;
-    }
-    else{
-        type = false;
-    }
-    
-    Etablissement unEtabl = new Etablissement(txt_id.getText(), txt_nomEtabl.getText(), txt_rue.getText(), txt_cp.getText(), txt_ville.getText(), txt_tel.getText(), type, civilite, txt_nomResp.getText(), txt_prenomResp.getText());
+        
+        String rue;
+        if(txt_rue.getText().equals(""))
+            {rue = " ";}
+        else {rue = txt_rue.getText();}
 
+        String cp;
+        if(txt_cp.getText().equals(""))
+            {cp = " ";}
+         else {cp = txt_cp.getText();}
 
-    Transaction tx = session.beginTransaction();
-    session.save(unEtabl);
-    
-    System.out.println(unEtabl.getEtaNom());
-    tx.commit();
-    System.out.println(unEtabl.getEtaNom());
-    
-    ChargerListeEtablissement();//Rechargement de la liste
+        String ville;
+        if(txt_ville.getText().equals(""))
+            {ville = " ";}
+         else {ville = txt_ville.getText();}
+
+        String tel;
+        if(txt_tel.getText().equals(""))
+             {tel = " ";}
+         else {tel = txt_tel.getText();}
+
+        String nomResp;
+        if(txt_nomResp.getText().equals(""))
+             {nomResp = " ";}
+         else {nomResp = txt_nomResp.getText();}
+
+        String prenomResp;
+        if(txt_prenomResp.getText().equals(""))
+             {prenomResp = " ";}
+         else {prenomResp = txt_prenomResp.getText();}
+
+        //Récupérer les valeurs des boutons radios
+        String civilite = "monsieur";
+        if(rad_mme.isSelected()){
+            civilite = "madame";
+        }
+        boolean type = false;
+        if(rad_etabl.isSelected()){
+            type = true;
+        }
+
+       Etablissement unEtabl = new Etablissement(txt_id.getText(), txt_nomEtabl.getText(), rue, cp, ville, tel, type, civilite, nomResp, prenomResp);
+
+        Transaction tx = session.beginTransaction();
+
+        if(this.etat.equals("ajt")){ //Si on est sur ajouter->On ajoute
+            session.save(unEtabl);
+            tx.commit();
+        }
+        else //si non on modifie 
+        {
+            session.update(unEtabl);
+            tx.commit();
+        }
+          retourPageAjout();
+
+    }
     
     }//GEN-LAST:event_btn_ajtMouseClicked
    
     private void ChargerListeEtablissement(){
-            lst_etabl.removeAllItems(); //vider la liste deroulante
-            String sReq= "from Etablissement";
-            jfPrincipal.getSession().beginTransaction();
-            Query q = jfPrincipal.getSession().createQuery(sReq);
-            Iterator itEtabl = q.iterate();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        jfPrincipal.setSession(session);//On recharge la session
+        lst_etabl.removeAllItems(); //Vider la liste deroulante
 
-            while(itEtabl.hasNext()){
-               Etablissement unetablissement = (Etablissement)itEtabl.next();
-               lst_etabl.addItem(unetablissement.getEtaNom());
-            }
-               // bcharge = true;
-           }
+        String sReq= "from Etablissement";
+        jfPrincipal.getSession().beginTransaction();
+        Query q = jfPrincipal.getSession().createQuery(sReq);
+        Iterator itEtabl = q.iterate();
+
+        while(itEtabl.hasNext()){
+           Etablissement unetablissement = (Etablissement)itEtabl.next();
+           lst_etabl.addItem(unetablissement.getEtaNom());
+
+        }
+    }
+    private void viderChamps(){
+        txt_id.enable(true); //Permet la saisie dans le champ
+        txt_id.setText("");
+        txt_nomEtabl.setText("");
+        txt_rue.setText("");
+        txt_ville.setText("");
+        txt_cp.setText("");
+        txt_tel.setText("");
+        txt_mail.setText("");
+        txt_nomResp.setText("");
+        txt_prenomResp.setText("");
+        rad_mme.setSelected(true);
+        rad_etabl.setSelected(true);
+    }
+    private void retourPageAjout(){
+        viderChamps();
+
+        btn_ajt.setText("Ajouter");//Bouton ajt -> modifier
+        btn_annuler.setText("Annuler");//Bouton annuler -> supprimer
+        
+        ChargerListeEtablissement();//Rechargement de la liste
+        btn_nouveau.setVisible(false);//On désactive le bouton "Nouveau"
+        
+        this.etat = "ajt";
+    }
+    
+    
     private void btn_annulerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_annulerMouseClicked
-        // Quand on clic sur "Annuler"
+        // Quand on clic sur "Annuler" / "supprimer"
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    
+    //Récupérer valeur des boutons radio
+    String civilite = "monsieur";
+    if(rad_mme.isSelected()){
+        civilite = "madame";
+    }
+    boolean type = false;
+    if(rad_etabl.isSelected()){
+        type = true;
+    }
+
+    Etablissement unEtabl = new Etablissement(txt_id.getText(), txt_nomEtabl.getText(), txt_rue.getText(), txt_cp.getText(), txt_ville.getText(), txt_tel.getText(), type, civilite, txt_nomResp.getText(), txt_prenomResp.getText());
+
+    Transaction tx = session.beginTransaction();
+    
+    if(this.etat.equals("voir")){ //Si on est sur voir->On supprime
+        
+        int retour = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+ 
+        if(retour == JOptionPane.YES_OPTION){
+            session.delete(unEtabl);
+            tx.commit();
+            ChargerListeEtablissement();
+            retourPageAjout();
+            this.etat = "ajt";
+        }
+    }
+    else //si non on est dans ajout et on annule en vidant les champs
+    {
+        viderChamps();
+    }
     }//GEN-LAST:event_btn_annulerMouseClicked
-
-    private void txt_nomEtablActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomEtablActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nomEtablActionPerformed
-
-    private void lst_etablActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lst_etablActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lst_etablActionPerformed
-
-    private void txt_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_idActionPerformed
 
     private void btn_voirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_voirMouseClicked
         // Quand on clic sur le bouton "Voir" (Afficher l'établissement de la liste déroulante)
-        btn_ajt.setText("Modifier");//Changer le texte des boutons 
-        btn_annuler.setText("Supprimer");
+        btn_ajt.setText("Modifier");//Bouton ajt -> modifier
+        btn_annuler.setText("Supprimer");//Bouton annuler -> supprimer
+        btn_nouveau.setVisible(true);//Affiche le bouton "Nouveau"
         String sNom;
-        Etablissement unetablissement;
+        Etablissement unEtabl;
   
-        //if (bCharge = true){
             sNom = (String) lst_etabl.getSelectedItem();
             sNom = sNom.replace("'","''");
-            
-           System.out.println(sNom);
                     
-                    
-            //BigDecimal i = new BigDecimal(BigInteger.ONE);
             String sQuery;
-            sQuery = "From Etablissement where nom = '"+ sNom + "'";     
+            sQuery = "From Etablissement where Eta_Nom = '"+ sNom + "'";     
             jfPrincipal.getSession().beginTransaction();
             Query q=jfPrincipal.getSession().createQuery(sQuery);
-            unetablissement = (Etablissement) q.uniqueResult();
-            
-            
-             System.out.println(unetablissement.getEtaNom());
+            unEtabl = (Etablissement) q.uniqueResult();
              
-             
-            txt_id.setText(unetablissement.getEtaId());
-            txt_nomEtabl.setText(unetablissement.getEtaNom());
-            txt_rue.setText(unetablissement.getEtaRue());
-            txt_ville.setText(unetablissement.getEtaVille());
-            txt_cp.setText(unetablissement.getEtaCp());
-            txt_tel.setText(unetablissement.getEtaTel());
-            txt_mail.setText(unetablissement.getEtaMail());
-            txt_nomResp.setText(unetablissement.getEtaNomresp());
-            txt_prenomResp.setText(unetablissement.getEtaPrenomresp());
+            txt_id.enable(false);
+            txt_id.setText(unEtabl.getEtaId());
+            txt_nomEtabl.setText(unEtabl.getEtaNom());
+            txt_rue.setText(unEtabl.getEtaRue());
+            txt_ville.setText(unEtabl.getEtaVille());
+            txt_cp.setText(unEtabl.getEtaCp());
+            txt_tel.setText(unEtabl.getEtaTel());
+            txt_mail.setText(unEtabl.getEtaMail());
+            txt_nomResp.setText(unEtabl.getEtaNomresp());
+            txt_prenomResp.setText(unEtabl.getEtaPrenomresp());
             
             //Boutons radios
-            if((unetablissement.getEtaCivilresp().equals("madame")))
+            if((unEtabl.getEtaCivilresp().equals("madame")))
             {
-                rad_mme.isSelected();
+                rad_mme.setSelected(true);
             }
             else
             {
-                rad_mr.isSelected();
+                rad_mr.setSelected(true);
             }
-            //rad_Group_civilite.setText(unetablissement.getEtaCivilresp());
-            if((unetablissement.isEtaType() == true ))
+            if((unEtabl.isEtaType() == true ))
             {
-                rad_etabl.isSelected();
+                rad_etabl.setSelected(true);
             }
             else
             {
-                rad_autre.isSelected();
+                rad_autre.setSelected(true);
             }
             
-            //radGroup_type.setText(unetablissement.isEtaType());
-        //} 
+            this.etat = "voir" ; 
     }//GEN-LAST:event_btn_voirMouseClicked
+
+    private void btn_nouveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nouveauActionPerformed
+        // Quand on clic sur le bouton "Ajout" (Affiche la page d'ajout)
+        retourPageAjout();
+        
+    }//GEN-LAST:event_btn_nouveauActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_ajt;
     private javax.swing.JButton btn_annuler;
+    private javax.swing.JButton btn_nouveau;
     private javax.swing.JButton btn_voir;
     private javax.swing.JLabel lab_civilite;
     private javax.swing.JLabel lab_cp4;
